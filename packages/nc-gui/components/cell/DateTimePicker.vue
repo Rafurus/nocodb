@@ -14,9 +14,11 @@ const { isMysql } = useProject()
 
 const readOnly = inject(ReadonlyInj, ref(false))
 
+const column = inject(ColumnInj)!
+
 let isDateInvalid = $ref(false)
 
-const dateFormat = isMysql ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ'
+const dateFormat = isMysql(column.value.base_id) ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD HH:mm:ssZ'
 
 const localState = $computed({
   get() {

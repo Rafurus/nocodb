@@ -20,7 +20,7 @@ const showEditFormulaWarningMessage = () => {
   }, 3000)
 }
 
-const result = computed(() => (isPg.value ? handleTZ(cellValue?.value) : cellValue?.value))
+const result = computed(() => (isPg(column.value.base_id) ? handleTZ(cellValue?.value) : cellValue?.value))
 
 const urls = computed(() => replaceUrlsWithLink(result.value))
 </script>

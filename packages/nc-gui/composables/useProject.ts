@@ -65,19 +65,19 @@ const [setup, use] = useInjectionState(() => {
     return temp
   })
 
-  function getBaseType(baseId: string) {
+  function getBaseType(baseId?: string) {
     return bases.value.find((base) => base.id === baseId)?.type || 'mysql2'
   }
 
-  function isMysql(baseId: string) {
+  function isMysql(baseId?: string) {
     return ['mysql', 'mysql2'].includes(getBaseType(baseId))
   }
 
-  function isMssql(baseId: string) {
+  function isMssql(baseId?: string) {
     return getBaseType(baseId) === 'mssql'
   }
 
-  function isPg(baseId: string) {
+  function isPg(baseId?: string) {
     return getBaseType(baseId) === 'pg'
   }
 
