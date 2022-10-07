@@ -1426,7 +1426,7 @@ jobs:
           working-directory: ./
           run: docker-compose -f ./scripts/docker-compose-cypress.yml up -d
         - name: run frontend
-          run: npm run start:web
+          run: npm run start:web &
         - name: Run backend
           working-directory: ./packages/nocodb
           run: npm run test:unit
