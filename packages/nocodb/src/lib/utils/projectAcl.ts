@@ -1,3 +1,5 @@
+import { OrgUserRoles } from '../../enums/OrgUserRoles'
+
 export default {
   owner: {
     exclude: {
@@ -271,14 +273,14 @@ export default {
       dataCount: true,
     },
   },
-  user_new: {
+  [OrgUserRoles.VIEWER]: {
     include: {
       passwordChange: true,
       projectList: true,
     },
   },
-  super: '*',
-  user: {
+  [OrgUserRoles.SUPER]: '*',
+  [OrgUserRoles.CREATOR]: {
     include: {
       upload: true,
       uploadViaURL: true,
@@ -301,7 +303,7 @@ export default {
       auditRowUpdate: true,
     },
   },
-};
+}
 
 /**
  * @copyright Copyright (c) 2021, Xgene Cloud Ltd
