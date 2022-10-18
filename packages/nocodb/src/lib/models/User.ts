@@ -3,6 +3,7 @@ import { CacheGetType, CacheScope, MetaTable } from '../utils/globals';
 import Noco from '../Noco';
 import { extractProps } from '../meta/helpers/extractProps';
 import NocoCache from '../cache/NocoCache';
+
 export default class User implements UserType {
   id: string;
 
@@ -63,6 +64,7 @@ export default class User implements UserType {
 
     return this.get(id, ncMeta);
   }
+
   public static async update(id, user: Partial<User>, ncMeta = Noco.ncMeta) {
     const updateObj = extractProps(user, [
       'email',
@@ -109,6 +111,7 @@ export default class User implements UserType {
     // set meta
     return await ncMeta.metaUpdate(null, null, MetaTable.USERS, updateObj, id);
   }
+
   public static async getByEmail(_email: string, ncMeta = Noco.ncMeta) {
     const email = _email?.toLowerCase();
     let user =
@@ -133,10 +136,21 @@ export default class User implements UserType {
     return false;
   }
 
-  static async count(ncMeta = Noco.ncMeta) {
-    return (
-      await ncMeta.knex(MetaTable.USERS).count('id', { as: 'count' }).first()
-    )?.count;
+  public static async count(
+    {
+      query = '',
+    }: {
+      query?: string;
+    } = {},
+    ncMeta = Noco.ncMeta
+  ): Promise<number> {
+    const qb = ncMeta.knex(MetaTable.USERS);
+
+    if (query) {
+      qb.where('email', 'like', `%${query.toLowerCase?.()}%`);
+    }
+
+    return (await qb.count('id', { as: 'count' }).first()).count;
   }
 
   static async get(userId, ncMeta = Noco.ncMeta) {
@@ -158,5 +172,46 @@ export default class User implements UserType {
       refresh_token,
     });
     return user;
+  }
+
+  public static async list(
+    {
+      limit = 25,
+      offset = 0,
+      query,
+    }: {
+      limit: number;
+      offset: number;
+      query?: string;
+    },
+    ncMeta = Noco.ncMeta
+  ) {
+    const queryBuilder = ncMeta
+      .knex(MetaTable.USERS)
+      .offset(offset)
+      .limit(limit)
+      .select(
+        `${MetaTable.USERS}.id`,
+        `${MetaTable.USERS}.email`,
+        `${MetaTable.USERS}.firstname`,
+        `${MetaTable.USERS}.lastname`,
+        `${MetaTable.USERS}.username`,
+        `${MetaTable.USERS}.email_verified`,
+        `${MetaTable.USERS}.created_at`,
+        `${MetaTable.USERS}.updated_at`,
+        `${MetaTable.USERS}.roles`
+      )
+      .count(`${MetaTable.PROJECT_USERS}.project_id`, { as: 'projectsCount' })
+      .leftJoin(MetaTable.PROJECT_USERS, function () {
+        this.on(
+          `${MetaTable.PROJECT_USERS}.fk_user_id`,
+          '=',
+          `${MetaTable.USERS}.id`
+        );
+      });
+    if (query) {
+      queryBuilder.where('email', 'like', `%${query.toLowerCase?.()}%`);
+    }
+    return await queryBuilder;
   }
 }
