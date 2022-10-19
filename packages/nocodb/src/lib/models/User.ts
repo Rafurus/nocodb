@@ -1,5 +1,5 @@
 import { UserType } from 'nocodb-sdk';
-import { NcError } from '../meta/helpers/catchError'
+import { NcError } from '../meta/helpers/catchError';
 import { CacheGetType, CacheScope, MetaTable } from '../utils/globals';
 import Noco from '../Noco';
 import { extractProps } from '../meta/helpers/extractProps';
@@ -216,7 +216,7 @@ export default class User implements UserType {
     return await queryBuilder;
   }
 
-  static async delete(_userId:string) {
-    NcError.notImplemented()
+  static async delete(_userId: string) {
+    NcError.notImplemented();
   }
 }
