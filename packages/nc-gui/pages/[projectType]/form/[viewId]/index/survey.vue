@@ -202,12 +202,15 @@ onMounted(() => {
       class="max-w-[max(33%,600px)] mx-auto flex flex-col justify-end"
     >
       <div class="px-4 md:px-0 flex flex-col justify-end">
-        <h1 class="prose-2xl font-bold self-center my-4" data-cy="nc-survey-form__heading">{{ sharedFormView.heading }}</h1>
+        <h1 class="prose-2xl font-bold self-center my-4" data-cy="nc-survey-form__heading" data-pw="nc-survey-form__heading">
+          {{ sharedFormView.heading }}
+        </h1>
 
         <h2
           v-if="sharedFormView.subheading && sharedFormView.subheading !== ''"
           class="prose-lg text-slate-500 dark:text-slate-300 self-center mb-4 leading-6"
           data-cy="nc-survey-form__sub-heading"
+          data-pw="nc-survey-form__sub-heading"
         >
           {{ sharedFormView?.subheading }}
         </h2>
@@ -222,7 +225,7 @@ onMounted(() => {
           class="color-transition h-full flex flex-col mt-6 gap-4 w-full max-w-[max(33%,600px)] m-auto"
         >
           <div v-if="field && !submitted" class="flex flex-col gap-2">
-            <div class="flex nc-form-column-label">
+            <div class="flex nc-form-column-label" data-pw="nc-form-column-label">
               <LazySmartsheetHeaderVirtualCell
                 v-if="isVirtualCol(field)"
                 :column="{ ...field, title: field.label || field.title }"
@@ -244,6 +247,7 @@ onMounted(() => {
                 v-if="isVirtualCol(field)"
                 class="mt-0 nc-input"
                 :data-cy="`nc-survey-form__input-${field.title.replaceAll(' ', '')}`"
+                :data-pw="`nc-survey-form__input-${field.title.replaceAll(' ', '')}`"
                 :column="field"
               />
 
@@ -252,6 +256,7 @@ onMounted(() => {
                 v-model="formState[field.title]"
                 class="nc-input"
                 :data-cy="`nc-survey-form__input-${field.title.replaceAll(' ', '')}`"
+                :data-pw="`nc-survey-form__input-${field.title.replaceAll(' ', '')}`"
                 :column="field"
                 :edit-enabled="true"
               />
@@ -264,6 +269,7 @@ onMounted(() => {
                 <div
                   class="block text-[14px]"
                   :class="field.uidt === UITypes.Checkbox ? 'text-center' : ''"
+                  data-pw="nc-survey-form__field-description"
                   data-cy="nc-survey-form__field-description"
                 >
                   {{ field.description }}
@@ -289,6 +295,7 @@ onMounted(() => {
                   type="submit"
                   class="uppercase scaling-btn prose-sm"
                   data-cy="nc-survey-form__btn-submit"
+                  data-pw="nc-survey-form__btn-submit"
                   @click="submitForm"
                 >
                   {{ $t('general.submit') }}
@@ -304,6 +311,7 @@ onMounted(() => {
                   <button
                     class="bg-opacity-100 scaling-btn flex items-center gap-1"
                     data-cy="nc-survey-form__btn-next"
+                    data-pw="nc-survey-form__btn-next"
                     :class="[
                       v$.localState[field.title]?.$error ? 'after:!bg-gray-100 after:!ring-red-500' : '',
                       animationTarget === AnimationTarget.OkButton && isAnimating
@@ -333,7 +341,11 @@ onMounted(() => {
 
           <Transition name="slide-left">
             <div v-if="submitted" class="flex flex-col justify-center items-center text-center">
-              <div class="text-lg px-6 py-3 bg-green-300 text-gray-700 rounded" data-cy="nc-survey-form__success-msg">
+              <div
+                class="text-lg px-6 py-3 bg-green-300 text-gray-700 rounded"
+                data-cy="nc-survey-form__success-msg"
+                data-pw="nc-survey-form__success-msg"
+              >
                 <template v-if="sharedFormView?.success_msg">
                   {{ sharedFormView?.success_msg }}
                 </template>
@@ -357,6 +369,7 @@ onMounted(() => {
                     type="button"
                     class="scaling-btn bg-opacity-100"
                     data-cy="nc-survey-form__btn-submit-another-form"
+                    data-pw="nc-survey-form__btn-submit-another-form"
                     @click="resetForm"
                   >
                     Submit Another Form
@@ -370,7 +383,11 @@ onMounted(() => {
     </div>
 
     <template v-if="!submitted">
-      <div class="mb-24 md:my-4 select-none text-center text-gray-500 dark:text-slate-200" data-cy="nc-survey-form__footer">
+      <div
+        class="mb-24 md:my-4 select-none text-center text-gray-500 dark:text-slate-200"
+        data-cy="nc-survey-form__footer"
+        data-pw="nc-survey-form__footer"
+      >
         {{ index + 1 }} / {{ formColumns?.length }}
       </div>
     </template>
@@ -390,6 +407,7 @@ onMounted(() => {
               "
               class="p-0.5 flex items-center group color-transition"
               data-cy="nc-survey-form__icon-prev"
+              data-pw="nc-survey-form__icon-prev"
               @click="goPrevious"
             >
               <MdiChevronLeft :class="isFirst ? 'text-gray-300' : 'group-hover:text-accent'" class="text-2xl md:text-md" />
@@ -409,6 +427,7 @@ onMounted(() => {
               "
               class="p-0.5 flex items-center group color-transition"
               data-cy="nc-survey-form__icon-next"
+              data-pw="nc-survey-form__icon-next"
               @click="goNext"
             >
               <MdiChevronRight
