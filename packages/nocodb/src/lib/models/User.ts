@@ -226,7 +226,9 @@ export default class User implements UserType {
     return queryBuilder;
   }
 
-  static async delete(_userId: string) {
-    NcError.notImplemented();
+  static async delete(userId: string, ncMeta = Noco.ncMeta) {
+    if (!userId) NcError.badRequest('userId is required');
+    await NocoCache.delAll(CacheScope.USER, `${userId}___*`);
+    await ncMeta.metaDelete(null, null, MetaTable.USERS, userId);
   }
 }
