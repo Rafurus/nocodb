@@ -3,8 +3,8 @@ import Model from '../../models/Model';
 import ProjectMgrv2 from '../../db/sql-mgr/v2/ProjectMgrv2';
 import Base from '../../models/Base';
 import Column from '../../models/Column';
+import { Tele } from '../../utils/Tele';
 import validateParams from '../helpers/validateParams';
-import { Tele } from 'nc-help';
 
 import { customAlphabet } from 'nanoid';
 import LinkToAnotherRecordColumn from '../../models/LinkToAnotherRecordColumn';
@@ -970,7 +970,6 @@ export async function columnUpdate(req: Request, res: Response<TableType>) {
                   ]
                 );
               }
-              
             } else if (driverType === 'pg') {
               await dbDriver.raw(
                 `UPDATE ?? SET ??  = array_to_string(array_remove(string_to_array(??, ','), ?), ',')`,
@@ -1150,7 +1149,7 @@ export async function columnUpdate(req: Request, res: Response<TableType>) {
                     newOp.title,
                   ]
                 );
-              } 
+              }
             } else if (driverType === 'pg') {
               await dbDriver.raw(
                 `UPDATE ?? SET ??  = array_to_string(array_replace(string_to_array(??, ','), ?, ?), ',')`,

@@ -1,4 +1,6 @@
-import orgUserApis from './orgUserApis'
+import { Tele } from '../../utils/Tele';
+import orgTokenApis from './orgTokenApis';
+import orgUserApis from './orgUserApis';
 import projectApis from './projectApis';
 import tableApis from './tableApis';
 import columnApis from './columnApis';
@@ -42,7 +44,6 @@ import {
   publicDataExportApis,
   publicMetaApis,
 } from './publicApis';
-import { Tele } from 'nc-help';
 import { Server, Socket } from 'socket.io';
 import passport from 'passport';
 
@@ -85,6 +86,7 @@ export default function (router: Router, server) {
   router.use(pluginApis);
   router.use(projectUserApis);
   router.use(orgUserApis);
+  router.use(orgTokenApis);
   router.use(sharedBaseApis);
   router.use(modelVisibilityApis);
   router.use(metaDiffApis);

@@ -1,4 +1,4 @@
-import { OrgUserRoles } from '../../enums/OrgUserRoles'
+import { OrgUserRoles } from '../../enums/OrgUserRoles';
 
 export default {
   owner: {
@@ -303,7 +303,7 @@ export default {
       auditRowUpdate: true,
     },
   },
-}
+};
 
 /**
  * @copyright Copyright (c) 2021, Xgene Cloud Ltd
