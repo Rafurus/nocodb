@@ -21,6 +21,7 @@ import hookApis from './hookApis';
 import pluginApis from './pluginApis';
 import gridViewColumnApis from './gridViewColumnApis';
 import kanbanViewApis from './kanbanViewApis';
+// import eeApis from './ee';
 import { userApis } from './userApi';
 // import extractProjectIdAndAuthenticate from './helpers/extractProjectIdAndAuthenticate';
 import utilApis from './utilApis';
@@ -60,6 +61,7 @@ export default function (router: Router, server) {
   projectApis(router);
   utilApis(router);
 
+  // router.use(eeApis);
   router.use(columnApis);
   router.use(exportApis);
   router.use(dataApis);
