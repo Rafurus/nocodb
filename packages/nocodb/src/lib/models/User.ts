@@ -106,6 +106,8 @@ export default class User implements UserType {
         await NocoCache.set(key, o);
       }
     }
+
+    await NocoCache.del(`${CacheScope.USER}:${user.email}`);
     // as <projectId> is unknown, delete user:<email>___<projectId> in cache
     await NocoCache.delAll(CacheScope.USER, `${user.email}___*`);
 
@@ -230,6 +232,7 @@ export default class User implements UserType {
   static async delete(userId: string, ncMeta = Noco.ncMeta) {
     if (!userId) NcError.badRequest('userId is required');
     await NocoCache.delAll(CacheScope.USER, `${userId}___*`);
+    await NocoCache.del(`${CacheScope.USER}:${userId}`);
     await ncMeta.metaDelete(null, null, MetaTable.USERS, userId);
   }
 }
