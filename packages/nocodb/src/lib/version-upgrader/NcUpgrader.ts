@@ -32,7 +32,7 @@ export default class NcUpgrader {
         { name: '0011043', handler: ncProjectEnvUpgrader },
         { name: '0011045', handler: ncProjectEnvUpgrader0011045 },
         { name: '0090000', handler: ncProjectUpgraderV2_0090000 },
-        { name: '0098002', handler: ncProjectRolesUpgrader },
+        { name: '0098003', handler: ncProjectRolesUpgrader },
       ];
       if (!(await ctx.ncMeta.knexConnection?.schema?.hasTable?.('nc_store'))) {
         return;
