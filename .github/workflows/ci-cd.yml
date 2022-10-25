@@ -1503,13 +1503,13 @@ jobs:
             done
         - name: Install dependencies
           working-directory: ./scripts/playwright
-          run: PLAYWRIGHT_BROWSERS_PATH=0 npm ci
+          run: npm ci
         - name: Install Playwright Browsers
           working-directory: ./scripts/playwright
-          run: PLAYWRIGHT_BROWSERS_PATH=0 npx playwright install chrome
+          run: npx playwright install chrome
         - name: Run Playwright tests
           working-directory: ./scripts/playwright
-          run: PLAYWRIGHT_BROWSERS_PATH=0 npm run ci-test-mysql
+          run: npm run ci-test-mysql
         - uses: actions/upload-artifact@v2
           if: always()
           with:
