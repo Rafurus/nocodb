@@ -1512,7 +1512,7 @@ jobs:
           run: npm ci
         - name: Install Playwright Browsers
           working-directory: ./scripts/playwright
-          run: npx playwright install --with-deps chromium
+          run: npx playwright install --with-deps
         - name: Run Playwright tests
           working-directory: ./scripts/playwright
           run: npm run ci-test-mysql
