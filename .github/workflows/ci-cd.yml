@@ -1503,10 +1503,16 @@ jobs:
             done
         - name: Install dependencies
           working-directory: ./scripts/playwright
+          - uses: actions/checkout@v3
+          - uses: actions/setup-node@v3
+            with:
+              node-version: 16
+              cache: 'npm'
+              cache-dependency-path: ./scripts/playwright/package-lock.json
           run: npm ci
         - name: Install Playwright Browsers
           working-directory: ./scripts/playwright
-          run: npx playwright install --with-deps chrome
+          run: npx playwright install --with-deps chromium
         - name: Run Playwright tests
           working-directory: ./scripts/playwright
           run: npm run ci-test-mysql
