@@ -1501,12 +1501,12 @@ jobs:
               printf '.'
               sleep 2
             done
-        - uses: actions/checkout@v3
-        - uses: actions/setup-node@v3
-          with:
-            node-version: 16
-            cache: 'npm'
-            cache-dependency-path: ./scripts/playwright/package-lock.json
+        # - uses: actions/checkout@v3
+        # - uses: actions/setup-node@v3
+        #   with:
+        #     node-version: 16
+        #     cache: 'npm'
+        #     cache-dependency-path: ./scripts/playwright/package-lock.json
         - name: Install dependencies
           working-directory: ./scripts/playwright
           run: npm ci
